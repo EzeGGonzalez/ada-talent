@@ -1,0 +1,17 @@
+@import "colors";
+
+@import "~bulma/bulma";
+
+body {
+  background: $color-wild-sand;
+}
+
+.is-bolder {
+  font-weight: 900;
+}
+
+.flex-end {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
