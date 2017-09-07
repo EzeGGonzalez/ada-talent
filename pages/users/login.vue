@@ -5,7 +5,7 @@
         <div class="columns is-vcentered">
           <div class="column is-4 is-offset-4">
             <h1 class="title">
-              Register an Account
+              Ingresar
             </h1>
             <div class="box">
 
@@ -53,5 +53,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+h1.title {
+  color: white;
+}
 </style>

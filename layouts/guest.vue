@@ -1,6 +1,8 @@
 <template>
   <section class="hero is-fullheight">
     <section id="guest">
+      <navbar-guest></navbar-guest>
+
       <nuxt/>
     </section>
 
@@ -9,11 +11,11 @@
 </template>
 
 <script>
-import Navbar from '~/components/Navbar.vue'
+import NavbarGuest from '~/components/navbar/NavbarGuest.vue'
 
 export default {
   components: {
-    Navbar
+    NavbarGuest
   }
 }
 </script>

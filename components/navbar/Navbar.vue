@@ -12,7 +12,7 @@
 
 <script></script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .navbar {
   height: 5rem;
   box-shadow: 0 2px 3px hsla(0,0%,4%,.1), 0 0 0 1px hsla(0,0%,4%,.1);
