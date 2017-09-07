@@ -32,7 +32,7 @@ if (config.dev) {
 app.use(nuxt.render)
 
 // Listen the server
-mongoose.connect('mongodb://localhost/ada-talent', function(err, res) {
+mongoose.connect(process.end.MONGO_URL_CONNECTION_STRING || 'mongodb://localhost/ada-talent', function(err, res) {
   if(err) {
     console.log(`Error: ${err}`)
   } else {
