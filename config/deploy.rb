@@ -16,7 +16,7 @@ set :repository, 'https://github.com/EzeGGonzalez/ada-talent.git'
 set :branch, 'master'
 set :user, 'ada'
 set :shared_dirs, fetch(:shared_dirs, []).push('uploads', 'log', 'node_modules')
-set :shared_fiels, fetch(:shared_fiels, []).push('config/database.json')
+set :shared_fiels, fetch(:shared_fiels, []).push('server/config/config.json')
 set :keep_releases, 2
 
 # Optional settings:

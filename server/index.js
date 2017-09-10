@@ -1,12 +1,24 @@
 import express from 'express'
 import { Nuxt, Builder } from 'nuxt'
 import mongoose from 'mongoose'
+import nconf from 'nconf'
+import path from 'path'
 
 import api from './api'
 
+nconf.env().file({ file: `${path.resolve('config')}/config.json` })
+
+nconf.defaults({
+  'HOST': '127.0.0.1',
+  'PORT': 3000,
+  'database': {
+    'url': 'mongodb://localhost/ada-talent'
+  }
+})
+
 const app = express()
-const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+const host = nconf.get('HOST')
+const port = nconf.get('PORT')
 
 app.set('port', port)
 
@@ -32,7 +44,7 @@ if (config.dev) {
 app.use(nuxt.render)
 
 // Listen the server
-mongoose.connect(process.env.MONGO_URL_CONNECTION_STRING || 'mongodb://localhost/ada-talent', function(err, res) {
+mongoose.connect(nconf.get('database:url'), function(err, res) {
   if(err) {
     console.log(`Error: ${err}`)
   } else {
