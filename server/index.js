@@ -6,7 +6,7 @@ import path from 'path'
 
 import api from './api'
 
-nconf.env().file({ file: `${path.resolve('config')}/config.json` })
+nconf.env().file({ file: `${path.resolve(path.join('server', 'config', 'config.json'))}` })
 
 nconf.defaults({
   'HOST': '127.0.0.1',
@@ -15,6 +15,8 @@ nconf.defaults({
     'url': 'mongodb://localhost/ada-talent'
   }
 })
+
+console.log(nconf.get('database:user'))
 
 const app = express()
 const host = nconf.get('HOST')
