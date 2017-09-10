@@ -15,7 +15,8 @@ set :deploy_to, '/var/www/ada-talent-app'
 set :repository, 'https://github.com/EzeGGonzalez/ada-talent.git'
 set :branch, 'master'
 set :user, 'ada'
-set :shared_paths, ['uploads', 'log']
+set :shared_dirs, fetch(:shared_dirs, []).push('uploads', 'log', 'node_modules')
+set :shared_fiels, fetch(:shared_fiels, []).push('config/database.json')
 set :keep_releases, 2
 
 # Optional settings:
@@ -51,7 +52,7 @@ task :deploy do
 
    on :launch do
      invoke :npmbuild
-     command 'pm2 restart build/main.js'
+     invoke :restart
    end
  end
 end
@@ -61,13 +62,16 @@ task :npmbuild do
 end
 
 task :start do
- command "cd #{fetch(:deploy_to)}/current && pm2 start build/main.js"
+ command "cd #{fetch(:current_path)}"
+ command "export MONGO_URL_CONNECTION_STRING=\"#{ENV['MONGO_URL_CONNECTION_STRING']}\""
+ command "pm2 start build/main.js --name ada-talent-app"
 end
 
 task :restart do
- command "cd #{fetch(:deploy_to)}/current && pm2 restart build/main.js"
+  command "export MONGO_URL_CONNECTION_STRING=#{ENV['MONGO_URL']}"
+  command "cd #{fetch(:deploy_to)}/current && pm2 restart ada-talent-app"
 end
 
 task :stop do
-  command "cd #{fetch(:deploy_to)}/current && pm2 stop build/main.js"
+  command "cd #{fetch(:deploy_to)}/current && pm2 stop ada-talent-app"
 end
