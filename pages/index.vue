@@ -12,7 +12,11 @@
           </div>
 
           <div class="box">
-            <h2>Hello World</h2>
+            <p class="title is-size-5 is-uppercase is-bolder">Skills destacados:</p>
+
+            <div class="field" v-for="(skill, index) in skills">
+              <b-checkbox v-model="filters.skills" :native-value="skill">{{skill}}</b-checkbox>
+            </div>
           </div>
         </div>
 
@@ -25,7 +29,7 @@
               Expone la data y habilita las funcionalidades que un site necesite, interactuando mucho con las UIDev. Usan catálogos de servicio para extraer data de bases de datos de terceros.
             </p>
 
-            <br /><br />
+            <hr>
 
             <p class="is-size-5 is-uppercase is-bolder">
               Salario sugerido
@@ -36,7 +40,7 @@
             </p>
           </div>
 
-          <div class="box" v-for="(coder, index) in coders">
+          <div class="box" v-for="(coder, index) in filteredCoders">
             <coder-tile :coder="coder"></coder-tile>
           </div>
         </div>
@@ -51,17 +55,29 @@ import Logo from '~/components/Logo.vue'
 import CoderTile from '~/components/CoderTile.vue'
 
 export default {
+  data () {
+    return {
+      filters: { skills: [] }
+    }
+  },
   components: {
     Logo,
     CoderTile
   },
   async asyncData () {
-    let { data } = await axios.get('/api/users')
-    return { coders: data }
+    let { data: coders } = await axios.get('/api/users')
+    let { data: skills } = await axios.get('/api/users/skills')
+
+    return { coders, skills }
   },
   head () {
     return {
-      title: 'Users'
+      title: 'Coders'
+    }
+  },
+  computed: {
+    filteredCoders () {
+      return this.filters.skills.length ? this.coders.filter(c => c.skills.some(s => this.filters.skills.indexOf(s) >= 0)) : this.coders
     }
   }
 }

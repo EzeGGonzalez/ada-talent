@@ -2,7 +2,7 @@
   <article class="media coder-tile">
     <div class="media-left">
       <figure class="image">
-        <img :src="`/api/image/${coder.photo.thumbnail}`" :alt="coder.name">
+        <img :src="`/api/image/${coder.photo.thumbnail}`" :alt="coder.fullname">
       </figure>
     </div>
     <div class="media-content">
@@ -21,22 +21,14 @@
           <div class="column">
             <div class="columns flex-end">
               <div class="column is-narrow">
-                <article class="tile is-child notification is-primary has-text-centered">
-                  <p class="title is-size-6 is-bolder">91 %</p>
-                  <p class="subtitle is-size-7 is-uppercase">Algo Acá</p>
-                </article>
+                <box-skill :value="coder.techSkills" title="Tech skills"></box-skill>
               </div>
-                <div class="column is-narrow">
-                  <article class="tile is-child notification is-primary has-text-centered">
-                    <p class="title is-size-6 is-bolder">91 %</p>
-                    <p class="subtitle is-size-7 is-uppercase">Algo Acá</p>
-                  </article>
-                </div>
+
               <div class="column is-narrow">
-                <article class="tile is-child notification is-primary has-text-centered">
-                  <p class="title is-size-6 is-bolder">91 %</p>
-                  <p class="subtitle is-size-7 is-uppercase">Algo Acá</p>
-                </article>
+                <box-skill :value="coder.lifeSkills" title="Life skills"></box-skill>
+              </div>
+              <div class="column is-narrow">
+                <box-skill :value="coder.englishSkills" title="English skills"></box-skill>
               </div>
             </div>
           </div>
@@ -46,19 +38,24 @@
           Skills destacados
         </p>
 
-        <div class="tags">
-          <span v-for="(tag, i) in coder.skills" class="tag is-light">{{tag}}</span>
-        </div>
+        <b-taglist>
+          <b-tag v-for="(tag, index) in coder.skills" type="is-light" :key="index">{{tag}}</b-tag>
+        </b-taglist>
 
       </div>
     </div>
 
-    <router-link class="button is-primary is-outlined" :to="{ name: '', params: {} }">Ver perfil</router-link>
+    <nuxt-link class="button is-primary is-outlined" :to="{ name: 'coders-id', params: { id: coder._id } }">Ver perfil</nuxt-link>
   </article>
 </template>
 
 <script>
+import BoxSkill from '~/components/BoxSkill.vue'
+
 export default {
+  components: {
+    BoxSkill
+  },
   props: {
     coder: {
       type: Object,

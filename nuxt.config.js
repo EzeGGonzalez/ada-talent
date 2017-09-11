@@ -13,6 +13,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  
+  plugins: ['~plugins/buefy', '~plugins/filters'],
+
   /*
   ** Global CSS
   */

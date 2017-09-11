@@ -52,7 +52,8 @@ task :deploy do
 
    on :launch do
      invoke :npmbuild
-     invoke :restart
+     invoke :stop
+     invoke :start
    end
  end
 end
@@ -63,12 +64,10 @@ end
 
 task :start do
  command "cd #{fetch(:current_path)}"
- command "export MONGO_URL_CONNECTION_STRING=\"#{ENV['MONGO_URL_CONNECTION_STRING']}\""
  command "pm2 start build/main.js --name ada-talent-app"
 end
 
 task :restart do
-  command "export MONGO_URL_CONNECTION_STRING=#{ENV['MONGO_URL']}"
   command "cd #{fetch(:deploy_to)}/current && pm2 restart ada-talent-app"
 end
 

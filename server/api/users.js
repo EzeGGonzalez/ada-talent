@@ -9,11 +9,20 @@ import avatarUploader from '../uploaders/avatar'
 const Coder = mongoose.model('coders')
 const router = Router()
 
-router.get('/users', function (req, res, next) {
+router.get('/', function (req, res, next) {
   Coder.find((err, coders) => res.send(coders))
 })
 
-router.get('/users/:id', function (req, res, next) {
+router.get('/skills', function (req, res, next) {
+  // Coder.aggregate([
+  //   { $unwind : "$skills" },
+  //   { $group : { _id : "$skills", count: { $sum: 1 } } },
+  //   { $sort : { count : -1} }
+  // ], (err, skills) => err ? res.sendStatus(500) : res.send(skills))
+  Coder.distinct('skills', (err, skills) => err ? res.sendStatus(500) : res.send(skills))
+})
+
+router.get('/:id', function (req, res, next) {
   const id = req.params.id || ''
   if (id && id.length) {
     Coder.findOne({_id: id}, (err, coder) => res.send(coder))
@@ -22,7 +31,7 @@ router.get('/users/:id', function (req, res, next) {
   }
 })
 
-router.post('/users/new', avatarUploader.single('photo'), function (req, res, next) {
+router.post('/new', avatarUploader.single('photo'), function (req, res, next) {
   let coder = new Coder({
     photo: {
       original: req.file.filename,
