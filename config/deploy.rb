@@ -74,12 +74,12 @@ end
 
 task :start_or_restart do
   in_path(fetch(:current_path)) do
-    command %{APP_NAME="#{fetch :application_name}" npm run pm2%}
+    command %{APP_NAME="#{fetch :application_name}" npm run pm2}
   end
 end
 
 task :stop do
   in_path(fetch(:current_path)) do
-    command %{APP_NAME="#{fetch :application_name}" npm run pm2:stop%}
+    command %{APP_NAME="#{fetch :application_name}" npm run pm2:stop}
   end
 end
