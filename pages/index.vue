@@ -3,12 +3,10 @@
     <div class="container">
       <div class="columns">
         <div class="column is-4">
-          <div class="box has-text-left">
-            <p class="title is-size-5 is-uppercase is-bolder">¿Cómo contrato?</p>
-
-            <p>
-              Entiende nuestro proceso de contratación.
-            </p>
+          <div class="box is-paddingless">
+            <a title="Alembic" href="/proceso" class="button is-medium is-primary is-fullwidth">
+              <span class="text">Visit website </span>
+            </a>
           </div>
 
           <div class="box">

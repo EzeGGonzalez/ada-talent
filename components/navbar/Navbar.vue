@@ -1,6 +1,9 @@
 <template>
   <nav class="navbar">
     <div class="container">
+      <div class="navbar-item ">
+        <a href="#" class="navbar-link">For editors</a>
+      </div>
       <div class="navbar-brand nav-center">
         <a class="navbar-item" href="#">
           <img src="/logo.png" alt="Ada">

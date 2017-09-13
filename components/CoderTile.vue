@@ -45,7 +45,9 @@
       </div>
     </div>
 
-    <nuxt-link class="button is-primary is-outlined" :to="{ name: 'coders-id', params: { id: coder._id } }">Ver perfil</nuxt-link>
+    <nuxt-link class="is-primary is-outlined is-arrowed" :to="{ name: 'coders-id', params: { id: coder._id } }">
+      <span class="text">Ver perfil</span> <b-icon pack="fa" size="is-small" icon="angle-right"></b-icon>
+    </nuxt-link>
   </article>
 </template>
 
@@ -75,10 +77,13 @@ article.coder-tile {
     }
   }
 
-  & > .button {
+  & > a {
     position: absolute;
     bottom: 0;
     right: 0;
+
+    align-items: center;
+    display: flex;
   }
 }
 </style>

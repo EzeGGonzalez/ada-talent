@@ -46,31 +46,40 @@ task :setup do
 end
 
 task :deploy do
- deploy do
-   invoke :'git:clone'
-   invoke :'deploy:link_shared_paths'
+  deploy do
+    invoke :'git:clone'
+    invoke :'deploy:link_shared_paths'
+    invoke :'deploy:cleanup'
 
-   on :launch do
-     invoke :npmbuild
-     invoke :stop
-     invoke :start
-   end
- end
+    on :launch do
+      invoke :npmbuild
+      invoke :start_or_restart
+    end
+  end
 end
 
 task :npmbuild do
- command "cd #{fetch(:deploy_to)}/current && npm install && npm run build"
+  in_path(fetch(:current_path)) do
+    command %{npm install && npm run build}
+  end
 end
 
 task :start do
- command "cd #{fetch(:current_path)}"
- command "pm2 start build/main.js --name ada-talent-app"
+  invoke :start_or_restart
 end
 
 task :restart do
-  command "cd #{fetch(:deploy_to)}/current && pm2 restart ada-talent-app"
+  invoke :start_or_restart
+end
+
+task :start_or_restart do
+  in_path(fetch(:current_path)) do
+    command %{APP_NAME="#{fetch :application_name}" npm run pm2%}
+  end
 end
 
 task :stop do
-  command "cd #{fetch(:deploy_to)}/current && pm2 stop ada-talent-app"
+  in_path(fetch(:current_path)) do
+    command %{APP_NAME="#{fetch :application_name}" npm run pm2:stop%}
+  end
 end

@@ -1,0 +1,9 @@
+.tile {
+  &.is-outlined {
+    &.is-primary {
+      background-color: transparent;
+      border: 1px solid $primary;
+      color: $primary;
+    }
+  }
+}
