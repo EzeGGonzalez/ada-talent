@@ -42,6 +42,12 @@ body {
   justify-content: flex-end;
 }
 
+.columns.is-vcentered {
+  -webkit-box-align: center;
+     -ms-flex-align: center;
+        align-items: center;
+}
+
 // import own scss
 @import "box_skill";
 @import "buttons";

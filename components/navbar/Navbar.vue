@@ -1,14 +1,24 @@
 <template>
   <nav class="navbar">
     <div class="container">
-      <div class="navbar-item ">
-        <a href="#" class="navbar-link">For editors</a>
-      </div>
-      <div class="navbar-brand nav-center">
-        <a class="navbar-item" href="#">
-          <img src="/logo.png" alt="Ada">
-        </a>
-      </div>
+        <div class="navbar-item is-one-third column has-text-left is-paddingless">
+          <nuxt-link v-if="this.$route.path !== '/'" to="/" exact class="is-primary is-outlined is-arrowed left">
+            <span class="text">Regresar</span>
+          </nuxt-link>
+        </div>
+
+        <div class="navbar-item navbar-brand is-one-third column has-text-centered">
+          <a href="/">
+            <img src="/logo.png" alt="Ada">
+          </a>
+        </div>
+
+        <div class="navbar-item is-one-third column has-text-right is-paddingless">
+          <nuxt-link to="subir-oferta" class="button is-primary is-uppercase">
+            <span>Subí una oferta</span>
+            <b-icon pack="fa" icon="upload"></b-icon>
+          </nuxt-link>
+        </div>
     </div>
   </nav>
 </template>
@@ -20,9 +30,19 @@
   height: 5rem;
   box-shadow: 0 2px 3px hsla(0,0%,4%,.1), 0 0 0 1px hsla(0,0%,4%,.1);
 
+  & > .container {
+    align-items: center;
+  }
+
   .navbar-item {
     img {
       max-height: 3rem;
+    }
+
+    a {
+      &.button {
+        font-weight: 600;
+      }
     }
   }
 }

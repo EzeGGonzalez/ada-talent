@@ -2,7 +2,48 @@ a {
   &.is-primary {
     &.is-outlined {
       color: $text;
-      border-bottom: 1px solid $primary;
+
+      span {
+        &:not(.icon) {
+          border-bottom: 1px solid $primary;
+        }
+
+        &.icon {
+          padding-bottom: 1px;
+        }
+      }
+    }
+  }
+
+  &.is-arrowed {
+    &.right {
+      .text {
+        margin-right: 1rem;
+      }
+
+      &::after {
+        @include arrow($navbar-dropdown-arrow);
+        @include center(0, -0.5em);
+        margin-top: -0.375em;
+        transform: rotate(-135deg);
+        right: 0;
+        left: auto;
+      }
+    }
+
+    &.left {
+      .text {
+        margin-left: 1rem;
+      }
+
+      &::after {
+        @include arrow($navbar-dropdown-arrow);
+        @include center(0, -0.5em);
+        margin-top: -0.375em;
+        transform: rotate(45deg);
+        left: 0;
+        right: auto;
+      }
     }
   }
 }

@@ -3,16 +3,23 @@ import { Nuxt, Builder } from 'nuxt'
 import mongoose from 'mongoose'
 import nconf from 'nconf'
 import path from 'path'
-
-import api from './api'
+import body from 'body-parser'
+import session from 'express-session'
+import cookieParser from 'cookie-parser'
 
 nconf.env().file({ file: `${__dirname}/config/config.json` })
 
 nconf.defaults({
   'HOST': '127.0.0.1',
   'PORT': 3000,
+  'ROOT_FOLDER': '/',
   'database': {
     'url': 'mongodb://localhost/ada-talent'
+  },
+  'cloudinary': {
+    key: '',
+    secret: '',
+    name: ''
   }
 })
 
@@ -30,10 +37,39 @@ const port = nconf.get('PORT')
 
 app.set('port', port)
 
+app.use(body.urlencoded({ extended: true }))
+app.use(body.json())
+
+var cookieSecret = 'secretCookie'
+
+app.use(cookieParser(cookieSecret))
+
+var keystone = require('keystone')
+
+app.use(session({
+  secret: cookieSecret
+}))
+
+keystone.init({
+  'name': 'Ada Talent App',
+  'brand': 'Ada',
+  'session': false,
+  'updates': '../server/updates',
+  'auth': true,
+  'user model': 'User',
+  'auto update': true,
+  'cookie secret': cookieSecret,
+  'mongo': nconf.get('database:url')
+})
+
+keystone.set('cloudinary config', 'cloudinary://822846714749348:NG3EOL4P20R3zNjuLlvLw6y11tI@ada-talent-app')
+
+keystone.import('../server/models')
+
 app.use('/api/image', express.static('uploads'))
 
 // Import API Routes
-app.use('/api', api)
+app.use('/api', require('./api').default)
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -48,14 +84,13 @@ if (config.dev) {
   builder.build()
 }
 
+keystone.set('app', app)
+
+app.use('/keystone', require('keystone/admin/server/app/createStaticRouter.js')(keystone))
+app.use('/keystone', require('keystone/admin/server/app/createDynamicRouter.js')(keystone))
+
 // Give nuxt middleware to express
 app.use(nuxt.render)
 
 // Listen the server
-mongoose.connect(nconf.get('database:url'), function(err, res) {
-  if(err) {
-    console.log(`Error: ${err}`)
-  } else {
-    app.listen(port, host)
-  }
-})
+keystone.start()

@@ -4,16 +4,20 @@
     <div class="container">
       <div class="columns">
         <div class="column is-3">
-          <div class="box has-text-left">
+          <div class="box has-text-left profile-left">
             <figure class="image">
-              <img :src="`/api/image/${coder.photo.thumbnail}`" :alt="coder.fullname">
+              <img :src="coder.pic.secure_url" :alt="coder.name.full">
             </figure>
             
-            <p class="title is-size-5 is-uppercase is-bolder">{{coder.fullname}}</p>
+            <p class="title is-size-5 is-uppercase is-bolder">{{coder | fullname}}</p>
 
             <hr>
 
             <p>{{coder.bio}}</p>
+
+            <hr>
+
+            <coder-profile-links :coder="coder"></coder-profile-links>
           </div>
         </div>
 
@@ -23,7 +27,15 @@
             <b-tabs expanded>
               <b-tab-item label="Tech skills">
                 <div class="skill-tab">
-                  <progress class="progress is-danger" :value="coder.techSkills" max="1">{{coder.techSkills | percentage}}</progress>
+                  
+                  <skill-progress :skill="{
+                    'description': 'Estas son las habilidades socioemociones foco que buscamos desarrollar.'
+                  }" :value-top="coder.techSkills" :value-bottom="0.75"></skill-progress>
+
+                  <hr>
+
+                  <skill-progress v-for="(skill, index) in techSkills" :key="index" :skill="skill" :value-top="coder.techSkills"></skill-progress>
+
                 </div>
               </b-tab-item>
 
@@ -50,6 +62,9 @@
 
 <script>
 import axios from '~/plugins/axios'
+import CoderProfileLinks from '~/components/CoderProfile/Links'
+import SkillProgress from '~/components/CoderProfile/SkillProgress'
+import { mapState } from 'vuex'
 
 export default {
   name: 'coder',
@@ -59,10 +74,18 @@ export default {
     return { coder }
   },
 
+  computed: {
+    ...mapState(['techSkills'])
+  },
+
   head () {
     return {
-      title: `User: ${this.coder.fullname}`
+      title: `Coder: ${this.coder.fullname}`
     }
+  },
+  components: {
+    CoderProfileLinks,
+    SkillProgress
   }
 }
 </script>
@@ -83,6 +106,15 @@ figure.image {
 .tab-content {
   .skill-tab {
     padding: 2rem;
+
+    .columns {
+      padding: 1rem 0;
+
+      &.first-child {
+        margin-top: 0.5rem;
+      }
+    }
   }
 }
+
 </style>

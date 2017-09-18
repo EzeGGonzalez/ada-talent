@@ -2,7 +2,7 @@
   <article class="media coder-tile">
     <div class="media-left">
       <figure class="image">
-        <img :src="`/api/image/${coder.photo.thumbnail}`" :alt="coder.fullname">
+        <img :src="coder.pic.secure_url" :alt="coder.fullname">
       </figure>
     </div>
     <div class="media-content">
@@ -45,8 +45,8 @@
       </div>
     </div>
 
-    <nuxt-link class="is-primary is-outlined is-arrowed" :to="{ name: 'coders-id', params: { id: coder._id } }">
-      <span class="text">Ver perfil</span> <b-icon pack="fa" size="is-small" icon="angle-right"></b-icon>
+    <nuxt-link class="is-primary is-outlined is-arrowed right" :to="{ name: 'coders-id', params: { id: coder._id } }">
+      <span class="text">Ver perfil</span>
     </nuxt-link>
   </article>
 </template>
