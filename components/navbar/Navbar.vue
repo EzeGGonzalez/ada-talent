@@ -14,9 +14,9 @@
         </div>
 
         <div class="navbar-item is-one-third column has-text-right is-paddingless">
-          <nuxt-link to="subir-oferta" class="button is-primary is-uppercase">
-            <span>Subí una oferta</span>
-            <b-icon pack="fa" icon="upload"></b-icon>
+          <nuxt-link :to="{ name: 'new-job' }" class="button is-medium is-primary is-uppercase">
+            <span class="is-bolder">Subí una oferta</span>
+            <!-- <b-icon pack="fa" icon="upload"></b-icon> -->
           </nuxt-link>
         </div>
     </div>

@@ -1,6 +1,5 @@
 <template>
   <section class="section" id="coder">
-    
     <div class="container">
       <div class="columns">
         <div class="column is-3">

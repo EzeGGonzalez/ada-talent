@@ -63,7 +63,7 @@ keystone.init({
   'mongo': nconf.get('database:url')
 })
 
-keystone.set('cloudinary config', `cloudinary://${nconf.get('cloudinary.key')}:${nconf.get('cloudinary.secret')}@${nconf.get('cloudinary.name')}`)
+keystone.set('cloudinary config', `cloudinary://${nconf.get('cloudinary:key')}:${nconf.get('cloudinary:secret')}@${nconf.get('cloudinary:name')}`)
 
 keystone.import('../server/models')
 

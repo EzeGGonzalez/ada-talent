@@ -4,8 +4,8 @@
       <div class="columns">
         <div class="column is-4">
           <div class="box is-paddingless">
-            <a title="Alembic" href="/proceso" class="button is-medium is-primary is-fullwidth">
-              <span class="text">Visit website </span>
+            <a href="/proceso" class="button is-medium is-primary is-fullwidth">
+              <span class="text">Conocé nuestro proceso<br>de contratación</span>
             </a>
           </div>
 
@@ -27,7 +27,7 @@
               Expone la data y habilita las funcionalidades que un site necesite, interactuando mucho con las UIDev. Usan catálogos de servicio para extraer data de bases de datos de terceros.
             </p>
 
-            <hr>
+            <!-- <hr>
 
             <p class="is-size-5 is-uppercase is-bolder">
               Salario sugerido
@@ -35,7 +35,7 @@
 
             <p>
               Estos montos son sugeridos en base a un análisis hecho con los salarios que recibieron nuestras estudiantes en el último proceso de inserción laboral hecho en cada país.
-            </p>
+            </p> -->
           </div>
 
           <div class="box" v-for="(coder, index) in filteredCoders">
@@ -81,12 +81,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.tile {
-  padding: 1rem;
-}
+<style lang="sass">
 
-.title:not(.is-spaced)+.subtitle {
-  margin-top: -1rem;
-}
+.box
+  .is-medium
+    height: auto
+
+.tile
+  padding: 1rem
+
+.title:not(.is-spaced)+.subtitle
+  margin-top: -1rem
+
 </style>

@@ -18,7 +18,7 @@ module.exports = {
     '@nuxtjs/font-awesome',
   ],
   
-  plugins: ['~plugins/buefy', '~plugins/filters'],
+  plugins: ['~plugins/buefy', '~plugins/filters', '~plugins/directives'],
 
   /*
   ** Global CSS

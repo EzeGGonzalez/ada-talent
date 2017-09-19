@@ -49,6 +49,14 @@ body {
         align-items: center;
 }
 
+.checkbox {
+  input[type=checkbox] {
+    + .check {
+      flex-shrink: 0;
+    }
+  }
+}
+
 // import own scss
 @import "box_skill";
 @import "buttons";
