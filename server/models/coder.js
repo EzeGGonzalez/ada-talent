@@ -7,7 +7,7 @@ Coder.add({
   name: { type: Types.Name, required: true, index: true },
   email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
   pic: { type: Types.CloudinaryImage, required: true, initial: true },
-  skills: { type: Types.TextArray, required: true, default: '' },
+  skills: { type: Types.TextArray, default: '' },
   bio: { type: Types.Textarea, default: '' },
   github: { type: Types.Url, default: '' },
   linkedin: { type: Types.Url, default: '' },

@@ -12,3 +12,6 @@ dist
 
 # Backpack build
 build
+
+# ignore config file
+server/config/config.json

@@ -20,7 +20,8 @@ nconf.defaults({
     key: '',
     secret: '',
     name: ''
-  }
+  },
+  'cookieSecret': 'cookieSecret'
 })
 
 const loadConf = () => {
@@ -40,7 +41,7 @@ app.set('port', port)
 app.use(body.urlencoded({ extended: true }))
 app.use(body.json())
 
-var cookieSecret = 'secretCookie'
+var cookieSecret = nconf.get('cookieSecret')
 
 app.use(cookieParser(cookieSecret))
 
@@ -62,7 +63,7 @@ keystone.init({
   'mongo': nconf.get('database:url')
 })
 
-keystone.set('cloudinary config', 'cloudinary://822846714749348:NG3EOL4P20R3zNjuLlvLw6y11tI@ada-talent-app')
+keystone.set('cloudinary config', `cloudinary://${nconf.get('cloudinary.key')}:${nconf.get('cloudinary.secret')}@${nconf.get('cloudinary.name')}`)
 
 keystone.import('../server/models')
 
