@@ -2,7 +2,7 @@
   <section class="section" id="coders">
     <div class="container">
       <div class="columns">
-        <div class="column is-4">
+        <div class="column is-3">
           <div class="box is-paddingless">
             <a href="/proceso" class="button is-medium is-primary is-fullwidth">
               <span class="text">Conocé nuestro proceso<br>de contratación</span>
@@ -18,7 +18,7 @@
           </div>
         </div>
 
-        <div class="column is-8">
+        <div class="column is-9">
           <div class="box">
             <p class="is-size-4 is-uppercase is-bolder">
               Frontend Developers
