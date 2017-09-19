@@ -8,9 +8,9 @@ Coder.add({
   email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
   pic: { type: Types.CloudinaryImage, required: true, initial: true },
   skills: { type: Types.TextArray, required: true, default: '' },
-  bio: { type: Types.Textarea, required: true, default: '' },
-  github: { type: Types.Url, required: true, default: '' },
-  linkedin: { type: Types.Url, required: true, default: '' },
+  bio: { type: Types.Textarea, default: '' },
+  github: { type: Types.Url, default: '' },
+  linkedin: { type: Types.Url, default: '' },
   portfolio: { type: Types.Url, default: '' },
   tech: {
     intro: { type: Types.Number, default: 0 },
