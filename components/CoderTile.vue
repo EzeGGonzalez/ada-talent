@@ -8,7 +8,7 @@
     <div class="media-content">
       <div class="content">
         <div class="columns">
-          <div class="column is-narrow">
+          <div class="column">
             <p class="title is-size-5 is-uppercase is-bolder">
               {{coder.name.first}} {{coder.name.last}}
             </p>
@@ -18,7 +18,7 @@
             </p>
           </div>
 
-          <div class="column">
+          <div class="column is-narrow">
             <div class="columns flex-end">
               <div class="column is-narrow">
                 <box-skill :value="techAvg" title="Tech skills"></box-skill>
