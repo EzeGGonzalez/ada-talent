@@ -10,7 +10,7 @@
       <div class="progress-container">
         <b-tooltip v-if="valueTop" type="is-info" :label="`Promedio: ${valueTop * 100} %`" always :style="{'margin-left': (valueTop * 100) + '%'}"></b-tooltip>
 
-        <progress class="progress is-primary is-large is-marginless" :value="valueTop" max="1"></progress>
+        <progress class="progress is-primary is-large is-marginless" :value="progressValue" max="1"></progress>
 
         <b-tooltip v-if="valueBottom" type="is-success" :label="`Empleable: ${valueBottom * 100} %`" always position="is-bottom" :style="{'margin-left': (valueBottom * 100) + '%'}"></b-tooltip>
       </div>
@@ -20,7 +20,7 @@
 
 <script>
   export default {
-    props: ['skill', 'valueTop', 'valueBottom']
+    props: ['skill', 'valueTop', 'valueBottom', 'progressValue']
   }
 </script>
 

@@ -6,7 +6,7 @@ const Coder = keystone.list('Coder')
 
 const router = Router()
 
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
   Coder.model.find((err, coders) => res.send(coders))
 })
 

@@ -29,25 +29,87 @@
                 <div class="skill-tab">
                   
                   <skill-progress :skill="{
-                    'description': 'Estas son las habilidades socioemociones foco que buscamos desarrollar.'
-                  }" :value-top="coder.techSkills" :value-bottom="0.75"></skill-progress>
+                    'description': 'Estas son las habilidades técnicas que las estudiantes han aprendido.'
+                  }" :value-top="averages.tech" :value-bottom="averages.techEmployable" :progress-value="techAvg"></skill-progress>
 
                   <hr>
 
-                  <skill-progress v-for="(skill, index) in techSkills" :key="index" :skill="skill" :value-top="coder.techSkills"></skill-progress>
+                  <skill-progress v-for="(skill, index) in techSkills" :key="index" :skill="skill" :value-top="coder.techSkills"
+                    :progress-value="coder.tech[skill.prop]"></skill-progress>
 
                 </div>
               </b-tab-item>
 
               <b-tab-item label="Life skills">
                 <div class="skill-tab">
-                  <progress class="progress is-danger" :value="coder.lifeSkills" max="1">{{coder.lifeSkills | percentage}}</progress>
+                  
+                  <skill-progress :skill="{
+                      'description': 'Estas son las habilidades socioemociones foco que buscamos desarrollar.'
+                    }" :value-top="averages.life" :value-bottom="averages.lifeEmployable"
+                    :progress-value="lifeAvg"></skill-progress>
+
+                  <hr>
+
+                  <skill-progress v-for="(skill, index) in lifeSkills" :key="index" :skill="skill" :value-top="coder.techSkills"
+                    :progress-value="coder.life[skill.prop]"></skill-progress>
+
                 </div>
               </b-tab-item>
 
               <b-tab-item label="English skills">
-                <div class="skill-tab">
-                  <progress class="progress is-danger" :value="coder.englishSkills" max="1">{{coder.englishSkills | percentage}}</progress>
+                <div class="skill-tab english-skills">
+                  
+                  <p class="mt-5 is-size-5">Este es el nivel de inglés que tienen las coders en el programa.</p>
+
+                  <div class="tabs is-toggle is-fullwidth mt-5">
+                    <ul>
+                      <li :class="{ 'is-active': coder.english === 'elemental' }">
+                        <a>
+                          <span>ELEMENTAL</span>
+                        </a>
+                      </li>
+                      <li :class="{ 'is-active': coder.english === 'basic' }">
+                        <a>
+                          <span>BÁSICO</span>
+                        </a>
+                      </li>
+                      <li :class="{ 'is-active': coder.english === 'intermediate' }">
+                        <a>
+                          <span>INTERMEDIO</span>
+                        </a>
+                      </li>
+                      <li :class="{ 'is-active': coder.english === 'advanced' }">
+                        <a>
+                          <span>AVANZADO</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="box" v-if="coder.english === 'elemental'">
+                    <p>
+                      Conozco muy poco del idioma.
+                    </p>
+                  </div>
+
+                  <div class="box" v-if="coder.english === 'basic'">
+                    <p>
+                      Conozco el idioma inglés pero no me sentiría cómoda trabajando en ese idioma.
+                    </p>
+                  </div>
+
+                  <div class="box" v-if="coder.english === 'intermediate'">
+                    <p>
+                      Entiendo el idioma inglés y podría comunicarme con los demás en mi trabajo, pero no podría trabajar sólo en ese idioma.
+                    </p>
+                  </div>
+
+                  <div class="box" v-if="coder.english === 'advanced'">
+                    <p>
+                      Me siento totalmente cómoda con el inglés y podría trabajar en una empresa en donde se comuniquen sólo en ese idioma.
+                    </p>
+                  </div>
+
                 </div>
               </b-tab-item>
             </b-tabs>
@@ -75,12 +137,21 @@ export default {
   },
 
   computed: {
-    ...mapState(['techSkills'])
+    techAvg () {
+      return Object.values(this.coder.tech || {}).reduce((sum, val) => sum + val, 0) / Object.keys(this.coder.tech || []).length
+    },
+    lifeAvg () {
+      return Object.values(this.coder.life || {}).reduce((sum, val) => sum + val, 0) / Object.keys(this.coder.tech || []).length
+    },
+    englishLevel () {
+      return ['elemental', 'basic', 'intermediate', 'advanced'].indexOf(this.coder.english)
+    },
+    ...mapState(['techSkills', 'lifeSkills', 'averages'])
   },
 
   head () {
     return {
-      title: `Coder: ${this.coder.fullname}`
+      title: `Coder: ${this.coder.name.first} ${this.coder.name.last}`
     }
   },
   components: {
@@ -90,31 +161,38 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-figure.image {
-  margin-bottom: 1.5rem;
-}
+<style lang="sass">
 
-.tabs {
-  a {
-    span {
-      text-transform: uppercase;
-    }
-  }
-}
+#coder
+  figure.image
+    margin-bottom: 1.5rem
 
-.tab-content {
-  .skill-tab {
-    padding: 2rem;
+  .b-tabs
+    .tabs
+      a
+        span
+          text-transform: uppercase
 
-    .columns {
-      padding: 1rem 0;
+    .tab-content
+      .skill-tab
+        padding: 2rem
 
-      &.first-child {
-        margin-top: 0.5rem;
-      }
-    }
-  }
-}
+        .columns
+          padding: 1rem 0
+
+          &.first-child
+            margin-top: 0.5rem
+
+        &.english-skills
+          .box
+            border: 1px solid hsla(0,0%,4%,.1)
+            border-radius: 0px 0px 5px 5px
+
+          li
+            &:not(.is-active)
+              background-color: hsla(0,0%,4%,.05)
+
+            a
+              font-weight: 900
 
 </style>

@@ -10,7 +10,7 @@
         <div class="columns">
           <div class="column is-narrow">
             <p class="title is-size-5 is-uppercase is-bolder">
-              {{coder.fullname}}
+              {{coder.name.first}} {{coder.name.last}}
             </p>
 
             <p class="subtitle">
@@ -21,14 +21,14 @@
           <div class="column">
             <div class="columns flex-end">
               <div class="column is-narrow">
-                <box-skill :value="coder.techSkills" title="Tech skills"></box-skill>
+                <box-skill :value="techAvg" title="Tech skills"></box-skill>
               </div>
 
               <div class="column is-narrow">
-                <box-skill :value="coder.lifeSkills" title="Life skills"></box-skill>
+                <box-skill :value="lifeAvg" title="Life skills"></box-skill>
               </div>
               <div class="column is-narrow">
-                <box-skill :value="coder.englishSkills" title="English skills"></box-skill>
+                <box-skill :value-text="englishLvl" title="English skills"></box-skill>
               </div>
             </div>
           </div>
@@ -55,6 +55,18 @@
 import BoxSkill from '~/components/BoxSkill.vue'
 
 export default {
+  computed: {
+    techAvg () {
+      return Object.values(this.coder.tech || {}).reduce((sum, val) => sum + val, 0) / Object.keys(this.coder.tech || []).length
+    },
+    lifeAvg () {
+      return Object.values(this.coder.life || {}).reduce((sum, val) => sum + val, 0) / Object.keys(this.coder.tech || []).length
+    },
+    englishLvl () {
+      return this.$store.state.english[this.coder.english]
+    }
+  },
+
   components: {
     BoxSkill
   },
