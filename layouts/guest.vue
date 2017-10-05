@@ -3,6 +3,18 @@
     <section id="guest">
       <navbar-guest></navbar-guest>
 
+      <div class="container mt-5">
+        <b-notification type="is-success" v-for="(msg, index) in $store.state.alerts.notifications"
+          :key="index"  v-delay="() => { $store.commit('alerts/removeNotification', msg) }">
+          {{msg}}
+        </b-notification>
+
+        <b-notification type="is-danger" v-for="(msg, index) in $store.state.alerts.errors"
+          :key="index"  v-delay="() => { $store.commit('alerts/removeError', msg) }">
+          {{msg}}
+        </b-notification>
+      </div>
+
       <nuxt/>
     </section>
 

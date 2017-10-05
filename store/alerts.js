@@ -14,5 +14,9 @@ export const mutations = {
 
   addError (state, text) {
     state.errors.push(text)
+  },
+  removeError (state, text) {
+    const index = state.errors.indexOf(text)
+    state.errors.splice(index, 1)
   }
 }

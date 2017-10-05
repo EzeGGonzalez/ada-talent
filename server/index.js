@@ -69,9 +69,6 @@ keystone.import('../server/models')
 
 app.use('/api/image', express.static('uploads'))
 
-// Import API Routes
-app.use('/api', require('./api').default)
-
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
@@ -85,13 +82,24 @@ if (config.dev) {
   builder.build()
 }
 
+// set app to keystone core
 keystone.set('app', app)
 
 app.use('/keystone', require('keystone/admin/server/app/createStaticRouter.js')(keystone))
 app.use('/keystone', require('keystone/admin/server/app/createDynamicRouter.js')(keystone))
 
+app.all('*', keystone.session.persist)
+
+app.use(function (req, res, next) {
+  req.keystone = keystone
+  next()
+})
+
+// Import API Routes
+app.use('/api', require('./api').default)
+
 // Give nuxt middleware to express
 app.use(nuxt.render)
 
-// Listen the server
+// Start app
 keystone.start()

@@ -74,6 +74,9 @@ export default {
     }
   },
   computed: {
+    token () {
+      return axios
+    },
     filteredCoders () {
       return this.filters.skills.length ? this.coders.filter(c => c.skills.some(s => this.filters.skills.indexOf(s) >= 0)) : this.coders
     }

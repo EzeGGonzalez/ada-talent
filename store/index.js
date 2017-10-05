@@ -29,9 +29,12 @@ export const state = () => ({
   }
 })
 
-// export const actions = {
-//   async nuxtServerInit ({ commit }, { req }) {
-//     let { data: skills } = await axios.get('/api/tech-skills')
-//     console.log(skills)
-//   }
-// }
+export const actions = {
+  async nuxtServerInit ({commit}, { req, res }) {
+    commit('session/SET_CSRF_TOKEN', req.keystone.security.csrf.getToken(req, res))
+
+    if (req.session && req.user) {
+      commit('session/SET_USER', req.user)
+    }
+  }
+}

@@ -153,6 +153,7 @@
 
 export default {
   name: 'new-job',
+  middleware: 'authenticated',
   head () {
     return {
       title: 'Subí una oferta'
