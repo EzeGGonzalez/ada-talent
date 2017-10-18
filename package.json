@@ -21,7 +21,6 @@
     "@nuxtjs/font-awesome": "^1.0.2",
     "axios": "^0.16.2",
     "body-parser": "^1.18.1",
-    "buefy": "^0.5.2",
     "cookie-parser": "^1.4.3",
     "cross-env": "^5.0.1",
     "crypto": "^1.0.1",
@@ -47,6 +46,9 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "node-sass": "^4.5.3",
-    "sass-loader": "^6.0.6"
+    "sass-loader": "^6.0.6",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "vuetify": "^0.16.5"
   }
 }

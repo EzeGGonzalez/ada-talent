@@ -18,12 +18,17 @@ module.exports = {
     '@nuxtjs/font-awesome',
   ],
   
-  plugins: ['~plugins/buefy', '~plugins/filters', '~plugins/directives'],
+  plugins: ['~plugins/vuetify', '~plugins/filters', '~plugins/directives'],
 
   /*
   ** Global CSS
   */
-  css: [{ src: '~assets/sass/main.scss', lang: 'scss' }],
+  css: [
+    {
+      src: '~assets/style/app.styl',
+      lang: 'styl'
+    }
+  ],
   /*
   ** Add axios globally
   */
