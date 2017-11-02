@@ -1,10 +1,19 @@
 // Import custom theme
-// @require './theme.styl'
+@require './theme.styl'
 
 // Import Vuetify styling
-@require '~vuetify/src/stylus/main.styl'
+@require '~vuetify/src/stylus/main'
 
-@require 'navbar.styl'
+@require 'navbar'
+@require 'footer'
+@require 'coder'
 
-.page
-  @extend .fade-transition
+// .page
+  // @extend .fade-transition
+
+.bolder
+  font-weight: 900
+
+.uppercase
+  text-transform: uppercase
+  

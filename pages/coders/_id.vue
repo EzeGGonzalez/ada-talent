@@ -1,197 +1,152 @@
 <template>
-  <section class="section" id="coder">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-3">
-          <div class="box has-text-left profile-left">
-            <figure class="image">
-              <img :src="coder.pic.secure_url" :alt="coder.name.full">
-            </figure>
-            
-            <p class="title is-size-5 is-uppercase is-bolder">{{coder | fullname}}</p>
-
-            <hr>
-
-            <p>{{coder.bio}}</p>
-
-            <hr>
-
-            <coder-profile-links :coder="coder"></coder-profile-links>
-          </div>
-        </div>
-
-        <div class="column is-9">
-          <div class="box">
-            
-            <b-tabs expanded>
-              <b-tab-item label="Tech skills">
-                <div class="skill-tab">
-                  
-                  <skill-progress :skill="{
-                    'description': 'Estas son las habilidades técnicas que las estudiantes han aprendido.'
-                  }" :value-top="averages.tech" :value-bottom="averages.techEmployable" :progress-value="techAvg"></skill-progress>
-
-                  <hr>
-
-                  <skill-progress v-for="(skill, index) in techSkills" :key="index" :skill="skill" :value-top="coder.techSkills"
-                    :progress-value="coder.tech[skill.prop]"></skill-progress>
-
-                </div>
-              </b-tab-item>
-
-              <b-tab-item label="Life skills">
-                <div class="skill-tab">
-                  
-                  <skill-progress :skill="{
-                      'description': 'Estas son las habilidades socioemociones foco que buscamos desarrollar.'
-                    }" :value-top="averages.life" :value-bottom="averages.lifeEmployable"
-                    :progress-value="lifeAvg"></skill-progress>
-
-                  <hr>
-
-                  <skill-progress v-for="(skill, index) in lifeSkills" :key="index" :skill="skill" :value-top="coder.techSkills"
-                    :progress-value="coder.life[skill.prop]"></skill-progress>
-
-                </div>
-              </b-tab-item>
-
-              <b-tab-item label="English skills">
-                <div class="skill-tab english-skills">
-                  
-                  <p class="mt-5 is-size-5">Este es el nivel de inglés que tienen las coders en el programa.</p>
-
-                  <div class="tabs is-toggle is-fullwidth mt-5">
-                    <ul>
-                      <li :class="{ 'is-active': coder.english === 'elemental' }">
-                        <a>
-                          <span>ELEMENTAL</span>
-                        </a>
-                      </li>
-                      <li :class="{ 'is-active': coder.english === 'basic' }">
-                        <a>
-                          <span>BÁSICO</span>
-                        </a>
-                      </li>
-                      <li :class="{ 'is-active': coder.english === 'intermediate' }">
-                        <a>
-                          <span>INTERMEDIO</span>
-                        </a>
-                      </li>
-                      <li :class="{ 'is-active': coder.english === 'advanced' }">
-                        <a>
-                          <span>AVANZADO</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div class="box" v-if="coder.english === 'elemental'">
-                    <p>
-                      Conozco muy poco del idioma.
-                    </p>
-                  </div>
-
-                  <div class="box" v-if="coder.english === 'basic'">
-                    <p>
-                      Conozco el idioma inglés pero no me sentiría cómoda trabajando en ese idioma.
-                    </p>
-                  </div>
-
-                  <div class="box" v-if="coder.english === 'intermediate'">
-                    <p>
-                      Entiendo el idioma inglés y podría comunicarme con los demás en mi trabajo, pero no podría trabajar sólo en ese idioma.
-                    </p>
-                  </div>
-
-                  <div class="box" v-if="coder.english === 'advanced'">
-                    <p>
-                      Me siento totalmente cómoda con el inglés y podría trabajar en una empresa en donde se comuniquen sólo en ese idioma.
-                    </p>
-                  </div>
-
-                </div>
-              </b-tab-item>
-            </b-tabs>
-
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="content">
+    <header-plain></header-plain>
     
-  </section>
+    <v-container id="container-coder" grid-list-md>
+      <v-layout row wrap>
+
+        <v-flex xs3 class="py-0">
+          <v-card class="elevation-12">
+            <v-card-media :src="coder.pic.secure_url" height="200px">
+        </v-card-media>
+           <!--  <v-card-text class="text-xs-center">
+              <v-avatar size="150px" tile>
+                <img class="img-circle elevation-7" :src="coder.pic.secure_url" :alt="coder.fullname">
+              </v-avatar>
+            </v-card-text> -->
+            
+            <v-card-title primary-title>
+              <div>{{coder.bio}}</div>
+            </v-card-title>
+            
+            <v-card-text class="coder-links">
+              <a class="d-flex align-center mb-2" target="_blank" :href="coder.linkedin">
+                <img src="/linkedin_icon.svg"/>
+                <span>Linkedin</span>
+              </a>
+              <a class="d-flex align-center mb-2" target="_blank" :href="coder.github">
+                <img src="/github_icon.svg"/>
+                <span>Github</span>
+              </a>
+            </v-card-text>
+
+          </v-card>
+        </v-flex>
+
+        <v-flex xs9 class="py-0 pl-5">
+          <div>
+            <h2 class="white--text display-3">{{coder | fullname}}</h2>
+          </div>
+
+          <v-tabs dark grow>
+            <v-toolbar class="elevation-0">
+              <v-tabs-bar>
+                <v-tabs-slider></v-tabs-slider>
+                <v-tabs-item
+                  v-for="(item, i) in items"
+                  :key="i"
+                  :href="'#tab-' + (i + 1)"
+                >
+                  {{ item }}
+                </v-tabs-item>
+              </v-tabs-bar>
+            </v-toolbar>
+            <v-tabs-items>
+              <v-tabs-content
+                v-for="i in 5"
+                :key="i"
+                :id="'tab-' + i"
+              >
+                <v-card class="elevation-12">
+                  <v-card-text>{{ text }}</v-card-text>
+                </v-card>
+              </v-tabs-content>
+            </v-tabs-items>
+          </v-tabs>
+        </v-flex>
+
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>
-import axios from '~/plugins/axios'
-import CoderProfileLinks from '~/components/CoderProfile/Links'
-import SkillProgress from '~/components/CoderProfile/SkillProgress'
-import { mapState } from 'vuex'
+  import HeaderPlain from '~/components/HeaderPlain.vue'
+  import axios from '~/plugins/axios'
+  import { mapState } from 'vuex'
 
-export default {
-  name: 'coder',
+  export default {
+    name: 'coder',
 
-  async asyncData ({ params, error }) {
-    let { data: coder } = await axios.get(`/api/users/${params.id}`)
-    return { coder }
-  },
-
-  computed: {
-    techAvg () {
-      return Object.values(this.coder.tech || {}).reduce((sum, val) => sum + val, 0) / Object.keys(this.coder.tech || []).length
+    data () {
+      return {
+        coder: {},
+        items: [
+          'web', 'shopping', 'videos', 'images', 'news'
+        ],
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      }
     },
-    lifeAvg () {
-      return Object.values(this.coder.life || {}).reduce((sum, val) => sum + val, 0) / Object.keys(this.coder.tech || []).length
-    },
-    englishLevel () {
-      return ['elemental', 'basic', 'intermediate', 'advanced'].indexOf(this.coder.english)
-    },
-    ...mapState(['techSkills', 'lifeSkills', 'averages'])
-  },
 
-  head () {
-    return {
-      title: `Coder: ${this.coder.name.first} ${this.coder.name.last}`
+    async asyncData ({ params, error }) {
+      let { data: coder } = await axios.get(`/api/users/${params.id}`)
+      return { coder }
+    },
+
+    computed: {
+      techAvg () {
+        return Object.values(this.coder.tech || {}).reduce((sum, val) => sum + val, 0) / Object.keys(this.coder.tech || []).length
+      },
+      lifeAvg () {
+        return Object.values(this.coder.life || {}).reduce((sum, val) => sum + val, 0) / Object.keys(this.coder.tech || []).length
+      },
+      englishLevel () {
+        return ['elemental', 'basic', 'intermediate', 'advanced'].indexOf(this.coder.english)
+      },
+      ...mapState(['techSkills', 'lifeSkills', 'averages'])
+    },
+
+    head () {
+      return {
+        title: this.coder && this.coder.name ? `Coder: ${this.coder.name.first} ${this.coder.name.last}` : 'Coder profile'
+      }
+    },
+    components: {
+      HeaderPlain
     }
-  },
-  components: {
-    CoderProfileLinks,
-    SkillProgress
   }
-}
 </script>
 
-<style lang="sass">
+<style lang="styl">
+  #container-coder
+    padding-top: 0
+    margin-top: -136px
 
-#coder
-  figure.image
-    margin-bottom: 1.5rem
-
-  .b-tabs
     .tabs
+      margin-top: -11px
+
+      .tabs__slider
+        height: 3px
+        background-color: #2b1c30
+        border-color: #2b1c30
+
+      .tabs__bar
+        margin-left: 0
+        margin-right: 0
+        background-color: transparent
+
+    .coder-links
       a
+        text-decoration: none;
+        width: 100%
+        font-size: 1.1rem
+        color: rgba(0,0,0,.87)
+
         span
-          text-transform: uppercase
+          border-bottom: 1px solid #bc3b69
+          flex: 0
 
-    .tab-content
-      .skill-tab
-        padding: 2rem
-
-        .columns
-          padding: 1rem 0
-
-          &.first-child
-            margin-top: 0.5rem
-
-        &.english-skills
-          .box
-            border: 1px solid hsla(0,0%,4%,.1)
-            border-radius: 0px 0px 5px 5px
-
-          li
-            &:not(.is-active)
-              background-color: hsla(0,0%,4%,.05)
-
-            a
-              font-weight: 900
-
+        img
+          max-width: 21px
+          margin-right: 10px
 </style>

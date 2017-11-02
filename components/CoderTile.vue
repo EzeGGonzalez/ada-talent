@@ -1,5 +1,42 @@
 <template>
-  <article class="media coder-tile">
+  <v-card class="coder-card" nuxt :to="{ name: 'coders-id', params: { id: coder._id } }">
+    <v-card-text class="text-xs-center pb-0">
+      <v-avatar size="100px">
+        <img class="img-circle elevation-7" :src="coder.pic.secure_url" :alt="coder.fullname">
+      </v-avatar>
+    </v-card-text>
+
+    <v-card-text primary-title class="text-xs-center">
+      <h2 class="headline mb-0">{{coder.name.first}} {{coder.name.last}}</h2>
+    </v-card-text>
+
+    <v-card-text class="skills">
+      <v-layout row>
+        <v-flex xs4>
+          <h5 class="body-2 mb-0 bolder">{{techAvg | percentage}}</h5>
+          <h6 class="caption mb-0 uppercase">Tech Skills</h6>
+        </v-flex>
+
+        <v-flex xs4>
+          <h5 class="body-2 mb-0 bolder text-xs-center">{{lifeAvg | percentage}}</h5>
+          <h6 class="caption mb-0 text-xs-center uppercase">Life Skills</h6>
+        </v-flex>
+
+        <v-flex xs4>
+          <h5 class="body-2 mb-0 bolder text-xs-right uppercase">{{englishLvl}}</h5>
+          <h6 class="caption mb-0 text-xs-right uppercase">Inglés</h6>
+        </v-flex>
+      </v-layout>
+    </v-card-text>
+
+    <!-- <v-card-actions class="white">
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>favorite</v-icon>
+      </v-btn>
+    </v-card-actions> -->
+  </v-card>
+<!--   <article class="media coder-tile">
     <div class="media-left">
       <figure class="image">
         <img :src="coder.pic.secure_url" :alt="coder.fullname">
@@ -48,7 +85,7 @@
     <nuxt-link class="is-primary is-outlined is-arrowed right" :to="{ name: 'coders-id', params: { id: coder._id } }">
       <span class="text">Ver perfil</span>
     </nuxt-link>
-  </article>
+  </article> -->
 </template>
 
 <script>
@@ -79,23 +116,5 @@ export default {
 }
 </script>
 
-<style lang="scss">
-article.coder-tile {
-  position: relative;
-
-  .image {
-    img {
-      max-width: 160px;
-    }
-  }
-
-  & > a {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-
-    align-items: center;
-    display: flex;
-  }
-}
+<style lang="styl">
 </style>

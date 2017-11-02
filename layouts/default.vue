@@ -1,23 +1,29 @@
 <template>
-  <v-app light>
-    <v-toolbar>
+  <v-app>
+    <v-toolbar app dark color="primary" class="elevation-0">
       <v-toolbar-title class="brand-logo"></v-toolbar-title>
       <v-spacer></v-spacer>
+      
       <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat>Link One</v-btn>
-        <v-btn flat>Link Two</v-btn>
-        <v-btn flat>Link Three</v-btn>
+
+      <v-toolbar-items class="hidden-sm-and-down white-text">
+        <v-btn flat :to="{ name: 'new-job' }" nuxt>
+          <v-icon left>add_circle_outline</v-icon>
+          Subir propuesta laboral
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
     <main>
       <v-content>
-        <v-container>
-          <nuxt />
-        </v-container>
+        <nuxt />
       </v-content>
     </main>
+
+      <v-footer app id="footer" class="mt-5 pa-3">
+        <v-spacer></v-spacer>
+        <div>© {{ new Date().getFullYear() }}</div>
+      </v-footer>
   </v-app>
 
 <!--   <div>
@@ -43,3 +49,14 @@ export default {
   }
 }
 </script>
+
+<style lang="styl">
+  @require '~assets/style/theme.styl'
+
+  nav.toolbar
+    z-index: 2
+    background-color: transparent!important
+
+  #footer
+    background-color: $primary-color
+</style>

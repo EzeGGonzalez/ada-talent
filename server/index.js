@@ -36,8 +36,6 @@ const app = express()
 const host = nconf.get('HOST')
 const port = nconf.get('PORT')
 
-app.set('port', port)
-
 app.use(body.urlencoded({ extended: true }))
 app.use(body.json())
 

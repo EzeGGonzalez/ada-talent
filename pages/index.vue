@@ -1,55 +1,23 @@
 <template>
-  <section class="section" id="coders">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-3">
-          <div class="box is-paddingless">
-            <a href="/proceso" class="button is-medium is-primary is-fullwidth">
-              <span class="text">Conocé nuestro proceso<br>de contratación</span>
-            </a>
-          </div>
+  <div class="content">
+    <header-skew></header-skew>
 
-          <div class="box">
-            <p class="title is-size-5 is-uppercase is-bolder">Skills destacados:</p>
+    <v-container grid-list-md class="coders-container">
+      <v-layout row wrap>
 
-            <div class="field" v-for="(skill, index) in skills">
-              <b-checkbox v-model="filters.skills" :native-value="skill">{{skill}}</b-checkbox>
-            </div>
-          </div>
-        </div>
+        <v-flex xs3 v-for="(coder, index) in coders">
+          <coder-tile :coder="coder"></coder-tile>
+        </v-flex>
 
-        <div class="column is-9">
-          <div class="box">
-            <p class="is-size-4 is-uppercase is-bolder">
-              Frontend Developers
-            </p>
-            <p>
-              Expone la data y habilita las funcionalidades que un site necesite, interactuando mucho con las UIDev. Usan catálogos de servicio para extraer data de bases de datos de terceros.
-            </p>
+      </v-layout>
+    </v-container>
 
-            <!-- <hr>
-
-            <p class="is-size-5 is-uppercase is-bolder">
-              Salario sugerido
-            </p>
-
-            <p>
-              Estos montos son sugeridos en base a un análisis hecho con los salarios que recibieron nuestras estudiantes en el último proceso de inserción laboral hecho en cada país.
-            </p> -->
-          </div>
-
-          <div class="box" v-for="(coder, index) in filteredCoders">
-            <coder-tile :coder="coder"></coder-tile>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 </template>
 
 <script>
 import axios from '~/plugins/axios'
-import Logo from '~/components/Logo.vue'
+import HeaderSkew from '~/components/HeaderSkew.vue'
 import CoderTile from '~/components/CoderTile.vue'
 
 export default {
@@ -59,7 +27,7 @@ export default {
     }
   },
   components: {
-    Logo,
+    HeaderSkew,
     CoderTile
   },
   async asyncData () {
@@ -84,16 +52,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
-
-.box
-  .is-medium
-    height: auto
-
-.tile
-  padding: 1rem
-
-.title:not(.is-spaced)+.subtitle
-  margin-top: -1rem
-
+<style lang="styl">
+  .coders-container
+    margin-top: -64px
 </style>
